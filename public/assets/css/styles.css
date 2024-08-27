@@ -1,0 +1,14 @@
+.delete-checkbox{
+    accent-color: red;
+}
+
+.w-10{
+    width: 300px;
+}
+.h-10{
+    height: 250px;
+}
+
+.hidden{
+    display: none;
+}
