@@ -11,12 +11,12 @@
 <div class="container-fluid row p-2">
     <h1 class="text-white col align-self-start m-2">Product Add</h1>
     <div class="col-8 d-flex justify-content-end align-self-center gap-2">
-        <button class="btn btn-warning" id="saveBtn" type="submit" form="productAdd">Save</button>
+      <button class="btn btn-warning" id="saveBtn" type="submit" form="product_form">Save</button>
         <a href="/"> <button class="btn btn-warning" id="cancelBtn" type="button">Cancel</button></a>
     </div>
 </div>
 
-<form method="POST" action="/add-product" id="productAdd" class="container">
+<form method="POST" action="/add-product" id="product_form" class="container">
     <div id="errorMessage" class="error hidden"></div>
     <div class="row gap-2 p-2 w-50">
         <input type="text" id="sku" name="sku" placeholder="SKU" class="form-control" required />
@@ -28,7 +28,7 @@
         <input type="number" id="price" name="price" placeholder="Price" class="form-control" required />
     </div>
     <div class="row gap-2 p-2 w-50">
-        <select id="type" name="type" class="form-control" onchange="showInputField()" required>
+        <select id="productType" name="type" class="form-control" onchange="showInputField()" required>
             <option value="">Select Type</option>
             <option value="DVD">DVD</option>
             <option value="Furniture">Furniture</option>
@@ -47,14 +47,16 @@
         <input type="number" id="length"  placeholder="Length (CM)" class="form-control" />
     </div>
 
-    <input type="hidden" id="attrribute"  name="attrribute" placeholder="attrribute"/>
+    <input type="text"
+     class="hidden"
+    id="attrribute"  name="attrribute" placeholder="attrribute"/>
 
     <div id="typeDescription" class="text-warning hidden"></div>
 </form>
 
 <script>
     function showInputField() {
-        const type = document.getElementById('type').value;
+        const type = document.getElementById('productType').value;
 
         document.getElementById('dvdFields').classList.toggle('hidden', type !== 'DVD');
         document.getElementById('bookFields').classList.toggle('hidden', type !== 'Book');
@@ -73,36 +75,41 @@
         } else {
             descElement.classList.add('hidden');
         }
-    }
+    };
 
-    document.getElementById('saveBtn').addEventListener('submit', function (event) {
+    document.getElementById('product_form').addEventListener('submit', function (event) {
 
 
-        let attributeValue = '';
+    let attributeValue;
+
 
         // Handle dynamic attribute field based on the type
-        const type = document.getElementById('type').value;
-        if (type === 'Furniture') {
-            const height = document.getElementById('height').value || '0';
-            const width = document.getElementById('width').value || '0';
-            const length = document.getElementById('length').value || '0';
+        const type = document.getElementById('productType').value;
+        if (type == 'Furniture') {
+            const height = document.getElementById('height').value ;
+            const width = document.getElementById('width').value ;
+            const length = document.getElementById('length').value;
 
             attributeValue = `${height}x${width}x${length}`;
-        } else if (type === 'DVD') {
-            const size = document.getElementById('size').value || '0';
+
+            document.getElementById("attrribute").value= attributeValue;
+        } else if (type == 'DVD') {
+            const size = document.getElementById('size').value ;
             attributeValue = size;
-        } else if (type === 'Book') {
-            const weight = document.getElementById('weight').value || '0';
+            document.getElementById("attrribute").value= attributeValue;
+        } else if (type == 'Book') {
+            const weight = document.getElementById('weight').value ;
             attributeValue = weight;
+            document.getElementById("attrribute").value = attributeValue;
+
         }
-
-        document.getElementById('attrribute').value = attributeValue;
-
-
+});
+    
 
 
-
-    });
+    document.getElementById("saveBtn").onclick = function () {
+       window.location.href = "/";
+    };
 </script>
 </body>
 </html>
