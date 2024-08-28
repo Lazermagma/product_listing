@@ -78,33 +78,35 @@
     };
 
     document.getElementById('product_form').addEventListener('submit', function (event) {
+    let attributeValue = '';
 
+    // Handle dynamic attribute field based on the type using switch case
+    const type = document.getElementById('productType').value;
 
-    let attributeValue;
-
-
-        // Handle dynamic attribute field based on the type
-        const type = document.getElementById('productType').value;
-        if (type == 'Furniture') {
-            const height = document.getElementById('height').value ;
-            const width = document.getElementById('width').value ;
+    switch (type) {
+        case 'Furniture':
+            const height = document.getElementById('height').value;
+            const width = document.getElementById('width').value;
             const length = document.getElementById('length').value;
-
             attributeValue = `${height}x${width}x${length}`;
+            break;
 
-            document.getElementById("attrribute").value= attributeValue;
-        } else if (type == 'DVD') {
-            const size = document.getElementById('size').value ;
+        case 'DVD':
+            const size = document.getElementById('size').value;
             attributeValue = size;
-            document.getElementById("attrribute").value= attributeValue;
-        } else if (type == 'Book') {
-            const weight = document.getElementById('weight').value ;
-            attributeValue = weight;
-            document.getElementById("attrribute").value = attributeValue;
+            break;
 
-        }
+        case 'Book':
+            const weight = document.getElementById('weight').value;
+            attributeValue = weight;
+            break;
+
+        default:
+            attributeValue = '';
+    }
+
+    document.getElementById("attrribute").value = attributeValue;
 });
-    
 
 
     document.getElementById("saveBtn").onclick = function () {
